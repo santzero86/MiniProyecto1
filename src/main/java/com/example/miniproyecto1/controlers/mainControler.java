@@ -70,7 +70,7 @@ public class mainControler {
     private Label errorLabel;
 
     private List<String> palabras = Arrays.asList(
-            "manzana", "perro", "casa", "montaña", "sol", "luna", "avión", "río", "bosque", "nube"
+            "manzana", "perro", "casa", "sol", "luna", "bosque", "nube"
     );
 
     String palabra;
@@ -78,6 +78,7 @@ public class mainControler {
     int error=0;
     int tiempo= 20;
     Timeline timeline;
+    String playerName;
 
     @FXML
     public void initialize() {
@@ -89,6 +90,27 @@ public class mainControler {
                 handleSubmit();
             }
         });
+        if (error == 0) {
+            moonImages.setImage(new Image(
+                    getClass().getResourceAsStream("/com/example/miniproyecto1/fases de la luna/Luna1.png"))
+            );
+        }else if(error==1){
+            moonImages.setImage(new Image(
+                    getClass().getResourceAsStream("/com/example/miniproyecto1/fases de la luna/Luna5.png")
+            ));
+        }else if(error==2){
+            moonImages.setImage(new Image(
+                    getClass().getResourceAsStream("/com/example/miniproyecto1/fases de la luna/Luna8.png")
+            ));
+        }else if(error==3){
+            moonImages.setImage(new Image(
+                    getClass().getResourceAsStream("/com/example/miniproyecto1/fases de la luna/Luna12.png")
+            ));
+        }else if(error==4){
+            moonImages.setImage(new Image(
+                    getClass().getResourceAsStream("/com/example/miniproyecto1/fases de la luna/Luna14.png")
+            ));
+        }
         if(error==4){
             if (timeline != null) {
                 timeline.stop();
@@ -100,24 +122,30 @@ public class mainControler {
                 stage.setTitle("My Game");
                 stage.setScene(new Scene(root));
                 stage.show();
+                derrotaControler derrotaController = loader.getController();
+                //String text = outputLabel.getText();
+                derrotaController.playerName(playerName,(nivel+1));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
+
     }
     @FXML
     public void playerName(String name){
+        playerName = name;
         outputLabel3.setText("PLAYER: "+ name);
     }
 
     private void mostrarPalabraAleatoria() {
+        /*
         if(tiempo == 20){
             moonImages.setImage(new Image(
                     getClass().getResourceAsStream("/com/example/miniproyecto1/fases de la luna/Luna1.png"))
             );
         }
-
+        */
         label5Output.setText(String.valueOf("Nivel: "+ (nivel+1)));
         labelOutput2.setText("La Palabra es: ");
         Random random = new Random();
@@ -140,6 +168,7 @@ public class mainControler {
             timerLabel.setText("Tiempo: " + tiempo + "s");
 
             if (tiempo <= 0 && error < 4 ) {
+                error ++;
                 timeline.stop();
                 Alert alert = new Alert(AlertType.INFORMATION);
                 alert.getDialogPane().setStyle("-fx-font-size: 30px; -fx-font-weight: bold;");
@@ -147,6 +176,8 @@ public class mainControler {
                 alert.setHeaderText(null);
                 alert.setContentText("Se te acabo el tiempo \n " + "Nivel: "+ (nivel+1));
                 alert.show();
+                //initialize();
+                alert.setOnHidden(evento -> initialize());
                 //mostrarMensaje("¡Tiempo agotado! ", false);
             }
         }));
@@ -157,23 +188,6 @@ public class mainControler {
     @FXML
     private void handleSubmit() {
         String userInput = inputField.getText();
-        /*
-        if(!userInput.replaceAll("\\s", "").equals(palabra.replaceAll("\\s", "")) && error==4){
-            if (timeline != null) {
-                timeline.stop();
-            }
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/miniproyecto1/MiniProyectoInterfaz-FXML-MensajeDerrota.fxml"));
-                Parent root = loader.load();
-                Stage stage = new Stage();
-                stage.setTitle("My Game");
-                stage.setScene(new Scene(root));
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        */
         if (!userInput.replaceAll("\\s", "").equals(palabra.replaceAll("\\s", ""))) {
             //Alerta de tipo ERROR
             error++;

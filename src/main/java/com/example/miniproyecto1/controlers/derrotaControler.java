@@ -12,7 +12,7 @@ public class derrotaControler {
 
         @FXML
         public void playerName(String name,int score){
-                datosDerrota.setText("Player: "+ name+ "\n" + "Tuviste 3 errores"+ "\n" + "Superaste el nivel: "+ score );
+                datosDerrota.setText("Player: "+ name+ "\n" + "Tuviste 4 errores"+ "\n" + "Superaste el nivel: "+ score );
 
         }
 }

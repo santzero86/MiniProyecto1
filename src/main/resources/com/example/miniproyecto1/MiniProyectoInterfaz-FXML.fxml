@@ -15,7 +15,7 @@
          <font>
             <Font name="DejaVu Sans Bold" size="52.0" />
          </font></Label>
-      <ImageView fx:id="moonImages" fitHeight="150.0" fitWidth="200.0" layoutX="515.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="moonImages" fitHeight="150.0" fitWidth="200.0" layoutX="506.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="labelOutput2" alignment="CENTER" layoutX="403.0" layoutY="221.0" prefHeight="61.0" prefWidth="395.0" text="Label">
          <font>
             <Font name="DejaVu Sans Bold" size="34.0" />
