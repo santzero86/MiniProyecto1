@@ -40,5 +40,10 @@
       <ImageView fx:id="errorMoon2" fitHeight="150.0" fitWidth="148.0" layoutX="986.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="errorMoon3" fitHeight="150.0" fitWidth="148.0" layoutX="986.0" layoutY="376.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="errorMoon4" fitHeight="150.0" fitWidth="148.0" layoutX="986.0" layoutY="573.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="errorLabel" layoutX="14.0" layoutY="139.0" prefHeight="51.0" prefWidth="379.0" text="Errores: ">
+         <font>
+            <Font name="DejaVu Sans Bold" size="31.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -3,14 +3,19 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.sql.Time;
 import java.util.Arrays;
 import java.util.List;
@@ -20,6 +25,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.animation.PauseTransition;
 import javafx.util.Duration;
 import javafx.scene.control.ButtonType;
+import com.example.miniproyecto1.controlers.derrotaControler;
+
 
 public class mainControler {
 
@@ -47,6 +54,21 @@ public class mainControler {
     @FXML
     private Label label5Output;
 
+    @FXML
+    private ImageView errorMoon1;
+
+    @FXML
+    private ImageView errorMoon2;
+
+    @FXML
+    private ImageView errorMoon3;
+
+    @FXML
+    private ImageView errorMoon4;
+
+    @FXML
+    private Label errorLabel;
+
     private List<String> palabras = Arrays.asList(
             "manzana", "perro", "casa", "montaña", "sol", "luna", "avión", "río", "bosque", "nube"
     );
@@ -61,14 +83,41 @@ public class mainControler {
     public void initialize() {
         mostrarPalabraAleatoria();
         iniciarTemporizador();
+        //submitButton.setOnAction(event -> handleSubmit());
+        inputField.setOnKeyPressed(event -> {
+            if (event.getCode().toString().equals("ENTER")) {
+                handleSubmit();
+            }
+        });
+        if(error==4){
+            if (timeline != null) {
+                timeline.stop();
+            }
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/miniproyecto1/MiniProyectoInterfaz-FXML-MensajeDerrota.fxml"));
+                Parent root = loader.load();
+                Stage stage = new Stage();
+                stage.setTitle("My Game");
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+    @FXML
+    public void playerName(String name){
+        outputLabel3.setText("PLAYER: "+ name);
     }
 
     private void mostrarPalabraAleatoria() {
-        if(error==0){
+        if(tiempo == 20){
             moonImages.setImage(new Image(
                     getClass().getResourceAsStream("/com/example/miniproyecto1/fases de la luna/Luna1.png"))
             );
         }
+
         label5Output.setText(String.valueOf("Nivel: "+ (nivel+1)));
         labelOutput2.setText("La Palabra es: ");
         Random random = new Random();
@@ -90,9 +139,15 @@ public class mainControler {
             tiempo--;
             timerLabel.setText("Tiempo: " + tiempo + "s");
 
-            if (tiempo <= 0) {
+            if (tiempo <= 0 && error < 4 ) {
                 timeline.stop();
-                //mostrarMensaje("¡Tiempo agotado! ❌", false);
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.getDialogPane().setStyle("-fx-font-size: 30px; -fx-font-weight: bold;");
+                alert.setTitle("Tiempo Acabado");
+                alert.setHeaderText(null);
+                alert.setContentText("Se te acabo el tiempo \n " + "Nivel: "+ (nivel+1));
+                alert.show();
+                //mostrarMensaje("¡Tiempo agotado! ", false);
             }
         }));
         timeline.setCycleCount(tiempo);
@@ -102,15 +157,34 @@ public class mainControler {
     @FXML
     private void handleSubmit() {
         String userInput = inputField.getText();
-        if (!userInput.replaceAll("\\s", "").equalsIgnoreCase(palabra.replaceAll("\\s", ""))) {
+        /*
+        if(!userInput.replaceAll("\\s", "").equals(palabra.replaceAll("\\s", "")) && error==4){
+            if (timeline != null) {
+                timeline.stop();
+            }
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/miniproyecto1/MiniProyectoInterfaz-FXML-MensajeDerrota.fxml"));
+                Parent root = loader.load();
+                Stage stage = new Stage();
+                stage.setTitle("My Game");
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        */
+        if (!userInput.replaceAll("\\s", "").equals(palabra.replaceAll("\\s", ""))) {
             //Alerta de tipo ERROR
-            error+=1;
+            error++;
+            errorLabel.setText("Error: " + error);
+            System.out.println(error);
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.getDialogPane().lookupButton(ButtonType.OK).setVisible(false);
             alert.getDialogPane().setStyle("-fx-font-size: 30px; -fx-font-weight: bold;");
             alert.setTitle("Incorrecto");
             alert.setHeaderText(null);
-            alert.setContentText("¡ERROR! Intentalo de nuevo ❌");
+            alert.setContentText("¡ERROR! Intentalo de nuevo ");
             alert.show();
             PauseTransition delay = new PauseTransition(Duration.seconds(2.0));
             delay.setOnFinished(event -> {
@@ -118,7 +192,7 @@ public class mainControler {
                 initialize();
             });
             delay.play();
-        } else if(userInput.replaceAll("\\s", "").equalsIgnoreCase(palabra.replaceAll("\\s", ""))) {
+        } else if(userInput.replaceAll("\\s", "").equals(palabra.replaceAll("\\s", ""))) {
             if (timeline != null) {
                 timeline.stop();
             }
@@ -139,8 +213,6 @@ public class mainControler {
 
             //initialize();
             alert.setOnHidden(event -> initialize());
-        } else if(!userInput.equalsIgnoreCase(palabra) && error==4){
-
         }
     }
 }

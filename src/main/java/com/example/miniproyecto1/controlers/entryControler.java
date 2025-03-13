@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
+import com.example.miniproyecto1.controlers.mainControler;
 
 public class entryControler {
 
@@ -28,6 +29,7 @@ public class entryControler {
 
         @FXML
         void buttonStartGame(ActionEvent event) {
+
                 try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/miniproyecto1/MiniProyectoInterfaz-FXML.fxml"));
                 Parent root = loader.load();
@@ -35,6 +37,9 @@ public class entryControler {
                 stage.setTitle("My Game");
                 stage.setScene(new Scene(root));
                 stage.show();
+                mainControler mainController = loader.getController();
+                String text = principalTextField.getText();
+                mainController.playerName(text);
                 } catch (IOException e) {
                         e.printStackTrace();
                 }
