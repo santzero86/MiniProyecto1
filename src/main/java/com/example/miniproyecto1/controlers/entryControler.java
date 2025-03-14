@@ -1,5 +1,4 @@
 package com.example.miniproyecto1.controlers;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,7 +13,6 @@ import java.io.IOException;
 import com.example.miniproyecto1.controlers.mainControler;
 import javafx.scene.Node;
 
-
 public class entryControler {
 
         @FXML
@@ -28,7 +26,7 @@ public class entryControler {
 
         @FXML
         private Button startButton;
-        //La necesidad de ese parametro, es un poco extraño, pero al parecer ese muestra cualquier evento sobre ese boton, mientras que si no lo ponemos, solo reacciona  al pulsarse de froma directa
+
         @FXML
         void initialize(){
 
@@ -45,7 +43,6 @@ public class entryControler {
                 mainControler mainController = loader.getController();
                 String text = principalTextField.getText();
                 mainController.playerName(text);
-                //Cierra  la ventana donde se ubica el event, pero si ponemos cualquiera de los otros atributos, el programa funcionaria de la misma manera
                 Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 currentStage.close();
                 } catch (IOException e) {

@@ -40,7 +40,6 @@ public class derrotaControler {
                         stage.setTitle("My Game");
                         stage.setScene(new Scene(root));
                         stage.show();
-                        //Cierra  la ventana donde se ubica el event, pero si ponemos cualquiera de los otros atributos, el programa funcionaria de la misma manera
                         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         currentStage.close();
                 } catch (IOException e) {

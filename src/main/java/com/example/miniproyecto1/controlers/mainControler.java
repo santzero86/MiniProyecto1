@@ -26,7 +26,6 @@ import javafx.util.Duration;
 import javafx.scene.control.ButtonType;
 import com.example.miniproyecto1.controlers.derrotaControler;
 
-
 public class mainControler {
 
     @FXML
@@ -54,18 +53,6 @@ public class mainControler {
     private Label label5Output;
 
     @FXML
-    private ImageView errorMoon1;
-
-    @FXML
-    private ImageView errorMoon2;
-
-    @FXML
-    private ImageView errorMoon3;
-
-    @FXML
-    private ImageView errorMoon4;
-
-    @FXML
     private Label errorLabel;
 
     private List<String> palabras = Arrays.asList(
@@ -79,12 +66,10 @@ public class mainControler {
     Timeline timeline;
     String playerName;
 
-
     @FXML
     public void initialize() {
         mostrarPalabraAleatoria();
         iniciarTemporizador();
-        //submitButton.setOnAction(event -> handleSubmit());
         inputField.setOnKeyPressed(event -> {
             if (event.getCode().toString().equals("ENTER")) {
                 handleSubmit();
@@ -123,32 +108,20 @@ public class mainControler {
                 stage.setScene(new Scene(root));
                 stage.show();
                 derrotaControler derrotaController = loader.getController();
-                //String text = outputLabel.getText();
                 derrotaController.playerName(playerName,(nivel+1));
                 Stage currentStage = (Stage) errorLabel.getScene().getWindow();
                 currentStage.close();
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
-
     }
     @FXML
     public void playerName(String name){
         playerName = name;
         outputLabel3.setText("PLAYER: "+ name);
     }
-
     private void mostrarPalabraAleatoria() {
-        /*
-        if(tiempo == 20){
-            moonImages.setImage(new Image(
-                    getClass().getResourceAsStream("/com/example/miniproyecto1/fases de la luna/Luna1.png"))
-            );
-        }
-        */
         label5Output.setText(String.valueOf("Nivel: "+ (nivel+1)));
         labelOutput2.setText("La Palabra es: ");
         errorLabel.setText("Error: " + error);
@@ -164,10 +137,7 @@ public class mainControler {
             timeline.stop();
         }
         tiempo = Math.max(2, 20 - (nivel / 5) * 2);
-        //String newText= timerLabel.getText();
-        //newText = newText + tiempo + "s";
         timerLabel.setText("Tiempo: " + tiempo + "s");
-        //timerLabel.setText(newText);
         timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             tiempo--;
             timerLabel.setText("Tiempo: " + tiempo + "s");
@@ -181,9 +151,7 @@ public class mainControler {
                 alert.setHeaderText(null);
                 alert.setContentText("Se te acabo el tiempo \n " + "Nivel: "+ (nivel+1));
                 alert.show();
-                //initialize();
                 alert.setOnHidden(evento -> initialize());
-                //mostrarMensaje("¡Tiempo agotado! ", false);
             } else if(tiempo <= 0 && userInput.replaceAll("\\s", "").equals(palabra.replaceAll("\\s", ""))){
                 nivel++;
                 timeline.stop();
@@ -193,11 +161,8 @@ public class mainControler {
                 alert.setHeaderText(null);
                 alert.setContentText("Se te acabo el tiempo\n " + "Lo lograste a tiempo " + "\n" +"Nivel Actual: "+ (nivel+1));
                 alert.show();
-                //initialize();
                 alert.setOnHidden(evento -> initialize());
             }
-
-
         }));
         timeline.setCycleCount(tiempo);
         timeline.play();
@@ -207,7 +172,6 @@ public class mainControler {
     private void handleSubmit() {
         String userInput = inputField.getText();
         if (!userInput.replaceAll("\\s", "").equals(palabra.replaceAll("\\s", ""))) {
-            //Alerta de tipo ERROR
             error++;
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.getDialogPane().lookupButton(ButtonType.OK).setVisible(false);
@@ -226,22 +190,13 @@ public class mainControler {
             if (timeline != null) {
                 timeline.stop();
             }
-            //timeline.stop();
             nivel++;
-            //error= 0;
             Alert alert = new Alert(AlertType.INFORMATION);
-            //alert.getDialogPane().lookupButton(ButtonType.OK).setVisible(false);
             alert.getDialogPane().setStyle("-fx-font-size: 30px; -fx-font-weight: bold;");
             alert.setTitle("Victoria");
             alert.setHeaderText(null);
             alert.setContentText("Subes de Nivel \n " + "Nivel: "+ (nivel+1));
             alert.show();
-            //timeline.stop();
-            //PauseTransition delay = new PauseTransition(Duration.seconds(0.5));
-            //delay.setOnFinished(event -> alert.close());
-            //delay.play();
-
-            //initialize();
             alert.setOnHidden(event -> initialize());
         }
     }
