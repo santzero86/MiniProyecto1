@@ -56,9 +56,27 @@ public class mainControler {
     private Label errorLabel;
 
     private List<String> palabras = Arrays.asList(
+        "manzana", "perro", "casa", "sol", "luna", "bosque", "nube", "mar", "río", "montaña",
+        "cielo", "estrella", "planeta", "flor", "árbol", "hoja", "tierra", "fuego", "agua", "viento",
+        "roca", "arena", "camino", "puente", "ciudad", "pueblo", "torre", "castillo", "ventana", "puerta",
+        "techo", "pared", "silla", "mesa", "cama", "almohada", "espejo", "reloj", "lámpara", "sombrero",
+        "zapato", "camisa", "pantalón", "chaqueta", "bufanda", "guante", "paraguas", "cinturón", "bolso", "mochila",
+        "bicicleta", "coche", "tren", "avión", "barco", "moto", "camión", "autobús", "semaforo", "carretera",
+        "escuela", "universidad", "biblioteca", "hospital", "farmacia", "supermercado", "mercado", "panadería", "restaurante", "hotel",
+        "juguete", "muñeca", "pelota", "rompecabezas", "cometa", "dado", "cartas", "ajedrez", "dinosaurio", "robot",
+        "guitarra", "piano", "violín", "tambor", "flauta", "trompeta", "micrófono", "altavoz", "disco", "radio",
+        "teléfono", "televisión", "computadora", "tableta", "teclado", "ratón", "pantalla", "internet", "correo", "mensaje"
+    );
+
+
+
+    /*
+    private List<String> palabras = Arrays.asList(
             "manzana", "perro", "casa", "sol", "luna", "bosque", "nube"
     );
 
+
+     */
     String palabra;
     int nivel=0;
     int error=0;

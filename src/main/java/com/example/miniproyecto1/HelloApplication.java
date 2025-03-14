@@ -13,17 +13,21 @@ import java.io.IOException;
 /**
  * initializer class of all the program
  * @author Santiago Guerrero
+ * @version 1.0.0
  *
  */
 public class HelloApplication extends Application {
+    /**
+     * @param stage ventana principal del programa
+     * @throws Exception lanza una excepcion si hay errores al cargar el archivos fxml
+     */
     public void start(Stage stage) throws Exception {
-        Stage secondStage = new Stage(); //
-        secondStage.setTitle("My Game");
-        FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getResource("/com/example/miniproyecto1/MiniProyectoInterfaz-FXML-Entrada.fxml"));
-        Parent root2 = fxmlLoader2.load();
-        Scene scene2 = new Scene(root2);
-        secondStage.setScene(scene2);
-        secondStage.show();
+        stage.setTitle("My Game");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/miniproyecto1/MiniProyectoInterfaz-FXML-Entrada.fxml"));
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
     public static void main(String[] args) {
         launch(args);
