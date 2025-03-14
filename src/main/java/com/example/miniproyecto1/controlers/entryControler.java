@@ -14,7 +14,6 @@ import com.example.miniproyecto1.controlers.mainControler;
 import javafx.scene.Node;
 
 public class entryControler {
-
         @FXML
         private Label principalLabel;
 
@@ -29,7 +28,11 @@ public class entryControler {
 
         @FXML
         void initialize(){
-
+                principalTextField.setOnKeyPressed(event -> {
+                        if (event.getCode().toString().equals("ENTER")) {
+                                buttonStartGame(new ActionEvent(startButton, null));
+                        }
+                });
         }
         @FXML
         void buttonStartGame(ActionEvent event) {

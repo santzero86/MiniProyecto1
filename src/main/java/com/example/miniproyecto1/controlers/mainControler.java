@@ -125,7 +125,6 @@ public class mainControler {
         label5Output.setText(String.valueOf("Nivel: "+ (nivel+1)));
         labelOutput2.setText("La Palabra es: ");
         errorLabel.setText("Error: " + error);
-        System.out.println(error);
         Random random = new Random();
         String palabraAleatoria = palabras.get(random.nextInt(palabras.size()));
         outputLabel.setText(palabraAleatoria);
@@ -151,6 +150,7 @@ public class mainControler {
                 alert.setHeaderText(null);
                 alert.setContentText("Se te acabo el tiempo \n " + "Nivel: "+ (nivel+1));
                 alert.show();
+                inputField.clear();
                 alert.setOnHidden(evento -> initialize());
             } else if(tiempo <= 0 && userInput.replaceAll("\\s", "").equals(palabra.replaceAll("\\s", ""))){
                 nivel++;
@@ -161,6 +161,7 @@ public class mainControler {
                 alert.setHeaderText(null);
                 alert.setContentText("Se te acabo el tiempo\n " + "Lo lograste a tiempo " + "\n" +"Nivel Actual: "+ (nivel+1));
                 alert.show();
+                inputField.clear();
                 alert.setOnHidden(evento -> initialize());
             }
         }));
@@ -185,6 +186,7 @@ public class mainControler {
                 alert.close();
                 initialize();
             });
+            inputField.clear();
             delay.play();
         } else if(userInput.replaceAll("\\s", "").equals(palabra.replaceAll("\\s", ""))) {
             if (timeline != null) {
@@ -197,6 +199,7 @@ public class mainControler {
             alert.setHeaderText(null);
             alert.setContentText("Subes de Nivel \n " + "Nivel: "+ (nivel+1));
             alert.show();
+            inputField.clear();
             alert.setOnHidden(event -> initialize());
         }
     }
