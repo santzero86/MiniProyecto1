@@ -19,9 +19,9 @@
          </font>
       </Label>
       <TextField fx:id="principalTextField" layoutX="234.0" layoutY="233.0" prefHeight="47.0" prefWidth="221.0" />
-      <Button fx:id="startButton" layoutX="295.0" layoutY="355.0" mnemonicParsing="false" onAction="#buttonStartGame" text="START">
+      <Button fx:id="startButton" layoutX="276.0" layoutY="349.0" mnemonicParsing="false" onAction="#buttonStartGame" style="-fx-background-color: #2C3E50;" text="START" textFill="WHITE">
          <font>
-            <Font size="23.0" />
+            <Font name="DejaVu Sans Mono Bold" size="31.0" />
          </font>
       </Button>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="212.0" layoutY="310.0" prefHeight="18.0" prefWidth="264.0" text="PRESIONA START PARA COMENZAR" />

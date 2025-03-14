@@ -14,7 +14,6 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import java.io.IOException;
 import java.sql.Time;
 import java.util.Arrays;
@@ -80,6 +79,7 @@ public class mainControler {
     Timeline timeline;
     String playerName;
 
+
     @FXML
     public void initialize() {
         mostrarPalabraAleatoria();
@@ -94,19 +94,19 @@ public class mainControler {
             moonImages.setImage(new Image(
                     getClass().getResourceAsStream("/com/example/miniproyecto1/fases de la luna/Luna1.png"))
             );
-        }else if(error==1){
+        }else if(error==1) {
             moonImages.setImage(new Image(
                     getClass().getResourceAsStream("/com/example/miniproyecto1/fases de la luna/Luna5.png")
             ));
-        }else if(error==2){
+        }else if(error==2) {
             moonImages.setImage(new Image(
                     getClass().getResourceAsStream("/com/example/miniproyecto1/fases de la luna/Luna8.png")
             ));
-        }else if(error==3){
+        }else if(error==3) {
             moonImages.setImage(new Image(
-                    getClass().getResourceAsStream("/com/example/miniproyecto1/fases de la luna/Luna12.png")
+                    getClass().getResourceAsStream("/com/example/miniproyecto1/fases de la luna/Luna11.png")
             ));
-        }else if(error==4){
+        }else if(error==4) {
             moonImages.setImage(new Image(
                     getClass().getResourceAsStream("/com/example/miniproyecto1/fases de la luna/Luna14.png")
             ));
@@ -125,6 +125,9 @@ public class mainControler {
                 derrotaControler derrotaController = loader.getController();
                 //String text = outputLabel.getText();
                 derrotaController.playerName(playerName,(nivel+1));
+                Stage currentStage = (Stage) errorLabel.getScene().getWindow();
+                currentStage.close();
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -148,6 +151,8 @@ public class mainControler {
         */
         label5Output.setText(String.valueOf("Nivel: "+ (nivel+1)));
         labelOutput2.setText("La Palabra es: ");
+        errorLabel.setText("Error: " + error);
+        System.out.println(error);
         Random random = new Random();
         String palabraAleatoria = palabras.get(random.nextInt(palabras.size()));
         outputLabel.setText(palabraAleatoria);
@@ -166,8 +171,8 @@ public class mainControler {
         timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             tiempo--;
             timerLabel.setText("Tiempo: " + tiempo + "s");
-
-            if (tiempo <= 0 && error < 4 ) {
+            String userInput = inputField.getText();
+            if (tiempo <= 0 && !userInput.replaceAll("\\s", "").equals(palabra.replaceAll("\\s", ""))) {
                 error ++;
                 timeline.stop();
                 Alert alert = new Alert(AlertType.INFORMATION);
@@ -179,7 +184,20 @@ public class mainControler {
                 //initialize();
                 alert.setOnHidden(evento -> initialize());
                 //mostrarMensaje("¡Tiempo agotado! ", false);
+            } else if(tiempo <= 0 && userInput.replaceAll("\\s", "").equals(palabra.replaceAll("\\s", ""))){
+                nivel++;
+                timeline.stop();
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.getDialogPane().setStyle("-fx-font-size: 30px; -fx-font-weight: bold;");
+                alert.setTitle("Tiempo Acabado");
+                alert.setHeaderText(null);
+                alert.setContentText("Se te acabo el tiempo\n " + "Lo lograste a tiempo " + "\n" +"Nivel Actual: "+ (nivel+1));
+                alert.show();
+                //initialize();
+                alert.setOnHidden(evento -> initialize());
             }
+
+
         }));
         timeline.setCycleCount(tiempo);
         timeline.play();
@@ -191,8 +209,6 @@ public class mainControler {
         if (!userInput.replaceAll("\\s", "").equals(palabra.replaceAll("\\s", ""))) {
             //Alerta de tipo ERROR
             error++;
-            errorLabel.setText("Error: " + error);
-            System.out.println(error);
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.getDialogPane().lookupButton(ButtonType.OK).setVisible(false);
             alert.getDialogPane().setStyle("-fx-font-size: 30px; -fx-font-weight: bold;");
