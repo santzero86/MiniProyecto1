@@ -19,9 +19,12 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     /**
      * @param stage ventana principal del programa
-     * @throws Exception lanza una excepcion si hay errores al cargar el archivos fxml
+     * @throws Exception lanza una excepción si hay errores al cargar los archivos fxml
      */
     public void start(Stage stage) throws Exception {
+        /**
+         * Se asgina un título al stage y se carga la interfaz gráfica desde otra carpeta
+         */
         stage.setTitle("My Game");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/miniproyecto1/MiniProyectoInterfaz-FXML-Entrada.fxml"));
         Parent root = fxmlLoader.load();
@@ -32,5 +35,4 @@ public class HelloApplication extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
 }

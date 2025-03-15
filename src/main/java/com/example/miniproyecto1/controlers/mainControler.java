@@ -25,9 +25,14 @@ import javafx.animation.PauseTransition;
 import javafx.util.Duration;
 import javafx.scene.control.ButtonType;
 import com.example.miniproyecto1.controlers.derrotaControler;
-
+/**
+ * @author Santiago Guerrero
+ * @version 1.0.0
+ */
 public class mainControler {
-
+    /**
+     * Controles de la interfaz grafica
+     */
     @FXML
     private Button submitButton;
 
@@ -54,7 +59,9 @@ public class mainControler {
 
     @FXML
     private Label errorLabel;
-
+    /**
+     * @param palabras una lista que almacena todas las palabras disponibles en el juego
+     */
     private List<String> palabras = Arrays.asList(
         "manzana", "perro", "casa", "sol", "luna", "bosque", "nube", "mar", "río", "montaña",
         "cielo", "estrella", "planeta", "flor", "árbol", "hoja", "tierra", "fuego", "agua", "viento",
@@ -68,14 +75,18 @@ public class mainControler {
         "teléfono", "televisión", "computadora", "tableta", "teclado", "ratón", "pantalla", "internet", "correo", "mensaje"
     );
 
-
-
     /*
     private List<String> palabras = Arrays.asList(
             "manzana", "perro", "casa", "sol", "luna", "bosque", "nube"
     );
-
-
+     */
+    /**
+     * @param palabra variable donde se almacena la palabra que ingresa el usuario en el textField
+     * @param nivel variable que determina el nivel del juego en el que se encuentra el usuario
+     * @param error variable que almacena la cantidad de errores cometidos por el usuario
+     * @param tiempo variable que declara los segundos iniciales del juego
+     * @param timeline clase que permite realizar acciones en instancias repetitivas
+     * @param playerName variable donde se almacena el nombre del usuario
      */
     String palabra;
     int nivel=0;
@@ -84,6 +95,9 @@ public class mainControler {
     Timeline timeline;
     String playerName;
 
+    /**
+     * Función que inicializa el temporizador por nivel y lanza un número aleatorio, además que tiene el poder para cambiar las imagenes según la cantidad de errores y desplegar la interfaz gráfica si se pierden las oportunidades
+     */
     @FXML
     public void initialize() {
         mostrarPalabraAleatoria();
@@ -93,6 +107,9 @@ public class mainControler {
                 handleSubmit();
             }
         });
+        /**
+         * Segmento que controla el cambio de las imagenes según los errores
+         */
         if (error == 0) {
             moonImages.setImage(new Image(
                     getClass().getResourceAsStream("/com/example/miniproyecto1/fases de la luna/Luna1.png"))
@@ -114,6 +131,9 @@ public class mainControler {
                     getClass().getResourceAsStream("/com/example/miniproyecto1/fases de la luna/Luna14.png")
             ));
         }
+        /**
+         * Desplega una interfaz grafica si se consigue el numero máximo de errores por partida
+         */
         if(error==4){
             if (timeline != null) {
                 timeline.stop();
@@ -125,8 +145,14 @@ public class mainControler {
                 stage.setTitle("My Game");
                 stage.setScene(new Scene(root));
                 stage.show();
+                /**
+                 * Función que permite traer una función desde derrotaControler
+                 */
                 derrotaControler derrotaController = loader.getController();
                 derrotaController.playerName(playerName,(nivel+1));
+                /**
+                 * Toma una referencia de la ventana y cierra la actual antes de desplegar la siguiente
+                 */
                 Stage currentStage = (Stage) errorLabel.getScene().getWindow();
                 currentStage.close();
             } catch (IOException e) {
@@ -134,11 +160,20 @@ public class mainControler {
             }
         }
     }
+
+    /**
+     * Función que agrega el nombre del jugador en esta ventana
+     * @param name nombre del usuario
+     */
     @FXML
     public void playerName(String name){
         playerName = name;
         outputLabel3.setText("PLAYER: "+ name);
     }
+
+    /**
+     * Función que escoje una palabra random de la lista suministrada
+     */
     private void mostrarPalabraAleatoria() {
         label5Output.setText(String.valueOf("Nivel: "+ (nivel+1)));
         labelOutput2.setText("La Palabra es: ");
@@ -149,16 +184,27 @@ public class mainControler {
         palabra = palabraAleatoria;
     }
 
+    /**
+     * FFuncion que controla el tiempo de los niveles
+     */
     private void iniciarTemporizador() {
         if (timeline != null) {
             timeline.stop();
         }
+        /**
+         * Esta línea se encarga de manipular el tiempo de los niveles a partir del uso de los datos de tipo int en java, dado que al ser enteros no pueden
+         * poseer decimales, por lo que si la division no es exacta, hace que los niveles tampoco cambien
+         */
         tiempo = Math.max(2, 20 - (nivel / 5) * 2);
         timerLabel.setText("Tiempo: " + tiempo + "s");
         timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             tiempo--;
             timerLabel.setText("Tiempo: " + tiempo + "s");
             String userInput = inputField.getText();
+            /**
+             * Condicionales que permiten administrar la condición de derrota por tiempo límite, además que tiran mensajes
+             * para informar que sucedieron
+             */
             if (tiempo <= 0 && !userInput.replaceAll("\\s", "").equals(palabra.replaceAll("\\s", ""))) {
                 error ++;
                 timeline.stop();
@@ -187,6 +233,9 @@ public class mainControler {
         timeline.play();
     }
 
+    /**
+     * Función asociada al evento del botón, esta permite subir de niveles si la palabra es igual o ganar errores si esta es diferente
+     */
     @FXML
     private void handleSubmit() {
         String userInput = inputField.getText();

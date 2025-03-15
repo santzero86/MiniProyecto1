@@ -18,7 +18,7 @@
             <Font name="DejaVu Sans Mono Bold" size="31.0" />
          </font>
       </Button>
-      <ImageView fx:id="image1" fitHeight="150.0" fitWidth="200.0" layoutX="210.0" layoutY="305.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="image1" fitHeight="150.0" fitWidth="200.0" layoutX="230.0" layoutY="307.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="datosDerrota" alignment="CENTER" layoutX="111.0" layoutY="116.0" prefHeight="170.0" prefWidth="398.0" text="Label">
          <font>
             <Font name="DejaVu Sans Mono Bold" size="27.0" />

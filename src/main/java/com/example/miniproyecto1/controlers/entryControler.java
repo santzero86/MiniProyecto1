@@ -12,8 +12,15 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import com.example.miniproyecto1.controlers.mainControler;
 import javafx.scene.Node;
+/**
+ * @author Santiago Guerrero
+ * @version 1.0.0
+ */
 
 public class entryControler {
+        /**
+         * Controles de la interfaz grafica
+         */
         @FXML
         private Label principalLabel;
 
@@ -25,7 +32,10 @@ public class entryControler {
 
         @FXML
         private Button startButton;
-
+        /**
+         * Metodo diseñado para lograr que el evento relacionado al enter desde teclado
+         * se ejecute como el boton diseñado para la ejecucion de la interfaz grafica
+         */
         @FXML
         void initialize(){
                 principalTextField.setOnKeyPressed(event -> {
@@ -34,8 +44,15 @@ public class entryControler {
                         }
                 });
         }
+        /**
+         * @param event este parametro sirve para relacionar otros eventos al boton
+         */
         @FXML
-        void buttonStartGame(ActionEvent event) {
+        public void buttonStartGame(ActionEvent event) {
+                /**
+                 * Este segmento de codigo permite que al presionar el evento de boton se despliegue mainControler, que es
+                 * la interfaz principal del proyecto
+                 */
                 try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/miniproyecto1/MiniProyectoInterfaz-FXML.fxml"));
                 Parent root = loader.load();
@@ -43,9 +60,17 @@ public class entryControler {
                 stage.setTitle("My Game");
                 stage.setScene(new Scene(root));
                 stage.show();
+                /**
+                 * @param text Texto ingresado por el usuario
+                 * @see playerName(String)
+                 */
                 mainControler mainController = loader.getController();
                 String text = principalTextField.getText();
                 mainController.playerName(text);
+                /**
+                 * @param currenStage Se crea un stage que obtiene de event una referencia de la ventana en la que este se ubica, para despues cerrarla con close()
+                 * @see close() funcion para cerrar ventanas
+                 */
                 Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 currentStage.close();
                 } catch (IOException e) {

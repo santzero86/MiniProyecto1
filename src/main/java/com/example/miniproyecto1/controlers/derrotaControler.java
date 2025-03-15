@@ -10,10 +10,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-
+/**
+ * @author Santiago Guerrero
+ * @version 1.0.0
+ */
 public class derrotaControler {
+        /**
+         * Controles de la interfaz gráfica
+         */
         @FXML
         private ImageView image1;
 
@@ -23,14 +28,22 @@ public class derrotaControler {
         @FXML
         private Button backButtom;
 
+        /**
+         *
+         * @param name Nombre del usuario ingresado por medio del textField
+         * @param score Niveles completados
+         */
         @FXML
         public void playerName(String name,int score){
                 datosDerrota.setText("Player: "+ name+ "\n" + "Tuviste 4 errores"+ "\n" + "Superaste el nivel: "+ (score-1) + "\n" + "Fallaste en el nivel: " + score );
                 image1.setImage(new Image(
-                        getClass().getResourceAsStream("/com/example/miniproyecto1/fases de la luna/11fe03534b2f42de8cc0a2f94d309952.jpg")
+                        getClass().getResourceAsStream("/com/example/miniproyecto1/fases de la luna/Luna14.png")
                 ));
         }
-
+        /**
+         * Función diseñada para mantener la recursividad, al cerrar esta ventana se vuelve a abrir la ventana de entrada, de forma que el usuario puede volver a jugar
+         * @param event evento asociado al boton
+         */
         @FXML
         void regresarMenuPrincipal(ActionEvent event) {
                 try {
